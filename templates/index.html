@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Merge Your PDFs Online</h1>
+        <p>Select multiple PDFs and merge them into one.</p>
+
+        <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
+            <label for="pdf_files" class="upload-label">Choose PDFs</label>
+            <input type="file" id="pdf_files" name="pdf_files" multiple required>
+            <button type="submit">Merge PDFs</button>
+        </form>
+
+        <!-- Loading Bar -->
+        <div id="loading-container">
+            <p id="loading-message">Merging PDFs... Please wait.</p>
+            <div id="progress-bar"></div>
+        </div>
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
