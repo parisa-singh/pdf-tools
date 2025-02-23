@@ -1,42 +1,64 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("pdf_files");
+    const fileListContainer = document.getElementById("file-list-container");
+    const fileList = document.getElementById("file-list");
+    const mergeButton = document.getElementById("merge-button");
     const form = document.getElementById("upload-form");
     const loadingContainer = document.getElementById("loading-container");
     const progressBar = document.getElementById("progress-bar");
     const loadingMessage = document.getElementById("loading-message");
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();  // Prevent default form submission
+    function updateMergeButtonState() {
+        mergeButton.disabled = fileInput.files.length === 0;
+    }
 
-        // Show loading bar and message
+    fileInput.addEventListener("change", function () {
+        fileList.innerHTML = "";
+        if (fileInput.files.length > 0) {
+            fileListContainer.style.display = "block";
+            Array.from(fileInput.files).forEach(file => {
+                const listItem = document.createElement("li");
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+            });
+        } else {
+            fileListContainer.style.display = "none";
+        }
+        updateMergeButtonState();
+    });
+
+    form.addEventListener("submit", function (event) {
+        if (fileInput.files.length === 0) {
+            event.preventDefault();
+            alert("Please select at least one PDF file.");
+            return;
+        }
+
+        event.preventDefault();
         loadingContainer.style.display = "block";
         loadingMessage.textContent = "Merging PDFs... Please wait.";
 
-        // Simulated progress animation
         let width = 0;
         const interval = setInterval(() => {
             width += 10;
             progressBar.style.width = width + "%";
-
             if (width >= 100) {
                 clearInterval(interval);
             }
         }, 500);
 
-        // Submit form after 2 seconds
         setTimeout(() => {
-            form.submit();  // Continue with form submission
+            form.submit();
         }, 2000);
     });
 
-    // Listen for file download completion
-    window.addEventListener("focus", function() {
-        // Change message after download is initiated
+    window.addEventListener("focus", function () {
         loadingMessage.textContent = "Saved to your desktop!";
-
-        // Hide the progress bar after 3 seconds
         setTimeout(() => {
             loadingContainer.style.display = "none";
             progressBar.style.width = "0%";
         }, 3000);
     });
+
+    updateMergeButtonState();
 });

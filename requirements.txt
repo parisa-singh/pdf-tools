@@ -1,3 +1,67 @@
 Flask
 PyPDF2
 werkzeug
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.getElementById("pdf_files");
+    const fileListContainer = document.getElementById("file-list-container");
+    const fileList = document.getElementById("file-list");
+    const mergeButton = document.getElementById("merge-button");
+    const form = document.getElementById("upload-form");
+    const loadingContainer = document.getElementById("loading-container");
+    const progressBar = document.getElementById("progress-bar");
+    const loadingMessage = document.getElementById("loading-message");
+
+    // Event listener to display selected file names
+    fileInput.addEventListener("change", function() {
+        fileList.innerHTML = ""; // Clear previous entries
+        if (fileInput.files.length > 0) {
+            fileListContainer.style.display = "block"; // Show file list container
+            Array.from(fileInput.files).forEach(file => {
+                const listItem = document.createElement("li");
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+            });
+            mergeButton.disabled = false; // Enable merge button
+        } else {
+            fileListContainer.style.display = "none"; // Hide if no files
+            mergeButton.disabled = true; // Disable merge button
+        }
+    });
+
+    // Handle form submission and loading animation
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();  // Prevent default form submission
+
+        // Show loading bar and message
+        loadingContainer.style.display = "block";
+        loadingMessage.textContent = "Merging PDFs... Please wait.";
+
+        // Simulated progress animation
+        let width = 0;
+        const interval = setInterval(() => {
+            width += 10;
+            progressBar.style.width = width + "%";
+
+            if (width >= 100) {
+                clearInterval(interval);
+            }
+        }, 500);
+
+        // Submit form after 2 seconds
+        setTimeout(() => {
+            form.submit();  // Continue with form submission
+        }, 2000);
+    });
+
+    // Detect when file download is completed
+    window.addEventListener("focus", function() {
+        loadingMessage.textContent = "Saved to your desktop!";
+        setTimeout(() => {
+            loadingContainer.style.display = "none";
+            progressBar.style.width = "0%";
+        }, 3000);
+    });
+});
+

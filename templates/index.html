@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,15 @@
         <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
             <label for="pdf_files" class="upload-label">Choose PDFs</label>
             <input type="file" id="pdf_files" name="pdf_files" multiple required>
-            <button type="submit">Merge PDFs</button>
+
+            <!-- File List Display -->
+            <div id="file-list-container">
+                <h3>Files Selected:</h3>
+                <ul id="file-list"></ul>
+            </div>
+
+            <!-- Merge Button -->
+            <button type="submit" id="merge-button" disabled>Merge PDFs</button>
         </form>
 
         <!-- Loading Bar -->
@@ -22,10 +31,7 @@
             <p id="loading-message">Merging PDFs... Please wait.</p>
             <div id="progress-bar"></div>
         </div>
-
-
     </div>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
