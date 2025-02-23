@@ -71,7 +71,7 @@ Visit **`http://127.0.0.1:5000/`** in your browser.
 ---
 
 ## 🎨 UI Preview
-![PDF Merger UI Screenshot](https://via.placeholder.com/800x400)
+![PDF Merger UI Screenshot](images\pdf merger.png)
 
 ---
 
@@ -87,7 +87,7 @@ This project is licensed under the **MIT License**. You are free to use and modi
 
 ## 📧 Contact
 For any questions or support, reach out at:
-📩 Email: your.email@example.com
+📩 Email: parisasingh@gmail.com
 
 Enjoy merging PDFs! 🚀
 
